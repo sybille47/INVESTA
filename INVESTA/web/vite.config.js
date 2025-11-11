@@ -1,11 +1,11 @@
 import { defineConfig } from "vite";
 import tailwindcss from '@tailwindcss/vite'
 import react from "@vitejs/plugin-react";
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
 import path from "path";
+import { fileURLToPath } from 'url';
 
-// https://vite.dev/config/
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   optimizeDeps: {
@@ -17,21 +17,8 @@ export default defineConfig({
       "@mui/x-charts",
     ],
   },
-  ssr: {
-    noExternal: [
-      "@mui/material",
-      "@mui/x-charts",
-      "@emotion/react",
-      "@emotion/styled",
-    ],
-  },
   resolve: {
     alias: {
-      // help Vite resolve emotion packages to the installed versions
-      "@emotion/react": require.resolve("@emotion/react"),
-      "@emotion/styled": require.resolve("@emotion/styled"),
-      // ensure MUI styled engine picks up emotion
-      "@mui/styled-engine": require.resolve("@mui/styled-engine"),
       "@": path.resolve(__dirname, "src"),
     },
   },
@@ -43,13 +30,18 @@ export default defineConfig({
 });
 
 
+
+
 // import { defineConfig } from "vite";
+// import tailwindcss from '@tailwindcss/vite'
 // import react from "@vitejs/plugin-react";
+// import { createRequire } from "module";
+// const require = createRequire(import.meta.url);
 // import path from "path";
 
 // // https://vite.dev/config/
 // export default defineConfig({
-//   plugins: [react()],
+//   plugins: [react(), tailwindcss()],
 //   optimizeDeps: {
 //     include: [
 //       "@mui/material",
@@ -57,10 +49,6 @@ export default defineConfig({
 //       "@emotion/react",
 //       "@emotion/styled",
 //       "@mui/x-charts",
-//       "react",
-//       "react-dom",
-//       "@auth0/auth0-react",
-//       "@fortawesome/react-fontawesome"
 //     ],
 //   },
 //   ssr: {
@@ -73,37 +61,17 @@ export default defineConfig({
 //   },
 //   resolve: {
 //     alias: {
+//       // help Vite resolve emotion packages to the installed versions
+//       "@emotion/react": require.resolve("@emotion/react"),
+//       "@emotion/styled": require.resolve("@emotion/styled"),
+//       // ensure MUI styled engine picks up emotion
+//       "@mui/styled-engine": require.resolve("@mui/styled-engine"),
 //       "@": path.resolve(__dirname, "src"),
-//       "@emotion/react": path.resolve(__dirname, "node_modules/@emotion/react"),
-//       "@emotion/styled": path.resolve(__dirname, "node_modules/@emotion/styled"),
-//       "@mui/styled-engine": path.resolve(__dirname, "node_modules/@mui/styled-engine"),
 //     },
 //   },
 //   test: {
 //     globals: true,
 //     environment: "jsdom",
 //     setupFiles: "./src/setupTests.js",
-//   },
-// });
-
-// import { defineConfig } from "vite";
-// import react from "@vitejs/plugin-react";
-// import path from "path";
-
-// export default defineConfig({
-//   plugins: [react()],
-//   resolve: {
-//     alias: {
-//       "@": path.resolve(__dirname, "src"),
-//     },
-//   },
-//   optimizeDeps: {
-//     include: [
-//       "react",
-//       "react-dom",
-//       "@auth0/auth0-react",
-//       "@fortawesome/react-fontawesome",
-//       "recharts"
-//     ],
 //   },
 // });
