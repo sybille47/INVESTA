@@ -18,19 +18,8 @@ const {
   getFundAllocation,
 } = require("./models/messages");
 
-// Existing routes...
-// router.get("/funds", checkJwt, async (req, res) => {
-//   try {
-//     const auth0UserId = req.auth.payload.sub;
-//     const funds = await getFunds(auth0UserId);
-//     res.json(funds);
-//   } catch (err) {
-//     console.error("Error fetching funds:", err);
-//     res.status(500).json({ error: "Failed to fetch funds router.js" });
-//   }
-// });
 
-router.get("/funds", checkJwt, async (req, res) => {
+router.get("/api/funds", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const email =
@@ -47,7 +36,7 @@ router.get("/funds", checkJwt, async (req, res) => {
 });
 
 
-router.get("/funds/:isin", checkJwt, async (req, res) => {
+router.get("/api/funds/:isin", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const fund = await getFundByIsin(req.params.isin, auth0UserId);
@@ -59,19 +48,7 @@ router.get("/funds/:isin", checkJwt, async (req, res) => {
   }
 });
 
-
-// router.get("/funds-total", checkJwt, async (req, res) => {
-//   try {
-//     const auth0UserId = req.auth.payload.sub;
-//     const total = await getFundsTotal(auth0UserId);
-//     if (!total) return res.status(404).json({ error: "Total not found" });
-//     res.json(total);
-//   } catch (err) {
-//     console.error("Error fetching total:", err);
-//     res.status(500).json({ error: "Failed to fetch total" });
-//   }
-// });
-router.get("/funds-total", checkJwt, async (req, res) => {
+router.get("/api/funds-total", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const email =
@@ -89,7 +66,7 @@ router.get("/funds-total", checkJwt, async (req, res) => {
 });
 
 
-router.get("/orders", checkJwt, async (req, res) => {
+router.get("/api/orders", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const { isin } = req.query;
@@ -101,7 +78,7 @@ router.get("/orders", checkJwt, async (req, res) => {
   }
 });
 
-router.post("/orders", checkJwt, async (req, res) => {
+router.post("/api/orders", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const { isin, amount, units, order_type, trade_date } = req.body;
@@ -129,7 +106,7 @@ router.post("/orders", checkJwt, async (req, res) => {
   }
 });
 
-router.get("/profile", checkJwt, async (req, res) => {
+router.get("/api/profile", checkJwt, async (req, res) => {
   try {
     console.log("Auth0 payload:", req.auth.payload);
 
@@ -150,26 +127,7 @@ router.get("/profile", checkJwt, async (req, res) => {
   }
 });
 
-// router.put("/profile", checkJwt, async (req, res) => {
-//   try {
-//     const auth0UserId = req.auth.payload.sub;
-//       const email =
-//       req.auth.payload["https://investa-api/email"] ||
-//       req.auth.payload.email ||
-//       req.auth.payload.name ||
-//       null;
-//     console.log("put Auth0 payload:", req.auth.payload);
-//     const updated = await putProfile(auth0UserId, email, req.body);
-//     console.log("Auth0 payload:", req.auth.payload);
-//     console.log("profile data:", profileData);
-//     res.json(updated);
-//   } catch (err) {
-//     console.error("Error in PUT /profile:", err);
-//     res.status(500).json({ error: "Failed to update profile" });
-//   }
-// });
-
-router.put("/profile", checkJwt, async (req, res) => {
+router.put("/api/profile", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const email =
@@ -186,22 +144,21 @@ router.put("/profile", checkJwt, async (req, res) => {
 
     console.log("PUT /profile - Updated successfully:", updated);
 
-    // ✅ Make sure to return the updated data
     res.status(200).json(updated);
 
   } catch (err) {
-    console.error("❌ Error in PUT /profile:", err);
+    console.error("Error in PUT /profile:", err);
     console.error("Error stack:", err.stack);
     res.status(500).json({
       error: "Failed to update profile",
-      details: err.message  // Add error details for debugging
+      details: err.message
     });
   }
 });
 
 // NEW CHART ROUTES
 // Get NAV history for a specific fund
-router.get("/nav/:isin", checkJwt, async (req, res) => {
+router.get("/api/nav/:isin", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const { isin } = req.params;
@@ -214,7 +171,7 @@ router.get("/nav/:isin", checkJwt, async (req, res) => {
 });
 
 // Get NAV history for all user's funds
-router.get("/nav", checkJwt, async (req, res) => {
+router.get("/api/nav", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const navHistory = await getAllNavHistory(auth0UserId);
@@ -227,7 +184,7 @@ router.get("/nav", checkJwt, async (req, res) => {
 });
 
 // Get investment value over time
-router.get("/charts/investment-value", checkJwt, async (req, res) => {
+router.get("/api/charts/investment-value", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const data = await getInvestmentValueHistory(auth0UserId);
@@ -239,7 +196,7 @@ router.get("/charts/investment-value", checkJwt, async (req, res) => {
 });
 
 // Get monthly investment counts
-router.get("/charts/monthly-counts", checkJwt, async (req, res) => {
+router.get("/api/charts/monthly-counts", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const data = await getMonthlyInvestmentCounts(auth0UserId);
@@ -251,7 +208,7 @@ router.get("/charts/monthly-counts", checkJwt, async (req, res) => {
 });
 
 // Get fund allocation (for pie chart)
-router.get("/charts/fund-allocation", checkJwt, async (req, res) => {
+router.get("/api/charts/fund-allocation", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
     const data = await getFundAllocation(auth0UserId);

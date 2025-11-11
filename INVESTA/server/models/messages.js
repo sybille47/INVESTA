@@ -53,151 +53,38 @@ async function getAccountId(auth0UserId, email = null) {
       );
 
       const accountId = res.rows[0].account_id;
-      console.log("✅ New user created with account_id:", accountId);
+      console.log("New user created with account_id:", accountId);
 
-      // ✅ Create a profile entry including email (if available)
+
       await pool.query(
         `INSERT INTO profiles (account_id, email_address)
           VALUES ($1, $2)
           ON CONFLICT (account_id) DO NOTHING`,
-        [accountId, email]  // ✅ Make sure this is 'email' not 'email_address'
+        [accountId, email]
       );
 
-      console.log("✅ Profile created for account_id:", accountId);
+      console.log("Profile created for account_id:", accountId);
       return accountId;
     }
 
     const accountId = res.rows[0].account_id;
 
-    // 🔁 If user exists but has no profile yet, ensure it's created
     await pool.query(
       `INSERT INTO profiles (account_id, email_address)
         VALUES ($1, $2)
         ON CONFLICT (account_id) DO NOTHING`,
-      [accountId, email]  // ✅ Make sure this is 'email' not 'email_address'
+      [accountId, email]
     );
 
     console.log("getAccountId - Existing user found, account_id:", accountId);
     return accountId;
 
   } catch (err) {
-    console.error("❌ Error in getAccountId:", err);
+    console.error("Error in getAccountId:", err);
     console.error("Error stack:", err.stack);
     throw err;
   }
 }
-
-// async function getAccountId(auth0UserId, email = null) {
-//   try {
-//     console.log("Looking up account_id for:", auth0UserId);
-
-//     let res = await pool.query(
-//       "SELECT account_id FROM users WHERE auth0_user_id = $1",
-//       [auth0UserId]
-//     );
-
-//     if (res.rows.length === 0) {
-//       console.log("User not found, creating new user...");
-      // Create new user
-      // res = await pool.query(
-      //   "INSERT INTO users (auth0_user_id) VALUES ($1) RETURNING account_id",
-      //   [auth0UserId]
-      // );
-
-      // const accountId = res.rows[0].account_id;
-      // console.log("✅ New user created with account_id:", accountId);
-
-      // // ✅ Create a profile entry including email (if available)
-      // await pool.query(
-      //   `
-      //   INSERT INTO profiles (account_id, email_address)
-      //   VALUES ($1, $2)
-      //   ON CONFLICT (account_id) DO NOTHING
-      //   `,
-      //   [accountId, email_address]
-      // );
-
-      // Create new user
-//         res = await pool.query(
-//           "INSERT INTO users (auth0_user_id) VALUES ($1) RETURNING account_id",
-//           [auth0UserId]
-//         );
-//         const accountId = res.rows[0].account_id;
-//         console.log("✅ New user created with account_id:", accountId);
-
-//         // ✅ Create a profile entry including email (if available)
-//         await pool.query(
-//           `INSERT INTO profiles (account_id, email_address)
-//           VALUES ($1, $2)
-//           ON CONFLICT (account_id) DO NOTHING`,
-//           [accountId, email]  // ✅ Changed from 'email_address' to 'email'
-//         );
-
-//       console.log("✅ Profile created for account_id:", accountId, "with email:", email_address);
-//       return accountId;
-//     }
-
-//     const accountId = res.rows[0].account_id;
-
-//     // 🔁 If user exists but has no profile yet, ensure it’s created
-//     await pool.query(
-//       `
-//       INSERT INTO profiles (account_id, email_address)
-//       VALUES ($1, $2)
-//       ON CONFLICT (account_id) DO NOTHING
-//       `,
-//       [accountId, email]
-//     );
-
-//     console.log("Existing user found, ensured profile for account_id:", accountId);
-//     return accountId;
-//   } catch (err) {
-//     console.error("❌ Error getting account_id:", err);
-//     throw err;
-//   }
-// }
-
-
-
-
-// Helper to get or create user and return account_id
-// old code messages.js
-// async function getAccountId(auth0UserId, email = null) {
-//   try {
-//     console.log("Looking up account_id for:", auth0UserId);
-//     let res = await pool.query(
-//       "SELECT account_id FROM users WHERE auth0_user_id = $1",
-//       [auth0UserId]
-//     );
-
-//     if (res.rows.length === 0) {
-//       console.log("User not found, creating new user...");
-//       // Create new user
-//       res = await pool.query(
-//         "INSERT INTO users (auth0_user_id) VALUES ($1) RETURNING account_id",
-//         [auth0UserId]
-//       );
-
-//       const accountId = res.rows[0].account_id;
-//       console.log("New user created with account_id:", accountId);
-
-//       // ✅ Create a new profile and include the email if available
-//       await pool.query(
-//         "INSERT INTO profiles (account_id, email_address) VALUES ($1, $2)",
-//         [accountId, email]
-//       );
-
-//       console.log("Profile created for account_id:", accountId, "with email:", email);
-//       return accountId;
-//     }
-
-//     console.log("Existing user found with account_id:", res.rows[0].account_id);
-//     return res.rows[0].account_id;
-//   } catch (err) {
-//     console.error("Error getting account_id:", err);
-//     throw err;
-//   }
-// }
 
 async function getFunds(auth0UserId, email = null) {
   try {
@@ -349,7 +236,7 @@ if (isin) {
         AND o.isin = $2
       ORDER BY o.trade_date DESC;
     `;
-  params = [accountId, isin]; // ✅ Correct order
+  params = [accountId, isin];
 
     } else {
       query = `
@@ -398,7 +285,7 @@ if (isin) {
     return res.rows;
   } catch (err) {
     console.error("Error fetching orders:", err);
-    console.error("❌ getOrders() failed:", err);
+    console.error("getOrders() failed:", err);
     throw err;
   }
 }
@@ -415,14 +302,11 @@ async function postOrders(
   try {
     const accountId = await getAccountId(auth0UserId);
 
-    // Normalize and enforce correct sign
     let numericAmount = amount ? parseFloat(amount) : null;
     let numericUnits = units ? parseFloat(units) : null;
 
     const type = order_type?.toLowerCase();
 
-// === NEW CODE ===
-    // Fetch user's current holdings for the fund
     const holdingsRes = await pool.query(
       `SELECT COALESCE(SUM(o.units), 0) AS units_held
           FROM orders o
@@ -431,7 +315,6 @@ async function postOrders(
     );
     const unitsHeld = parseFloat(holdingsRes.rows[0]?.units_held || 0);
 
-    // Server-side validation for redemption
     if (type === "redemption") {
       if (!numericUnits) {
         throw new Error(
@@ -444,7 +327,6 @@ async function postOrders(
         );
       }
     }
-  // Enforce correct sign based on order type
     if (type === "redemption") {
       if (numericAmount !== null) numericAmount = -Math.abs(numericAmount);
       if (numericUnits !== null) numericUnits = -Math.abs(numericUnits);
@@ -568,59 +450,15 @@ async function putProfile(auth0UserId, email, data) {
       throw new Error(`No profile found for account_id: ${accountId}`);
     }
 
-    console.log('✅ Profile updated successfully:', res.rows[0]);
+    console.log('Profile updated successfully:', res.rows[0]);
     return res.rows[0];
 
   } catch (err) {
-    console.error('❌ Error in putProfile:', err);
+    console.error('Error in putProfile:', err);
     console.error('Error stack:', err.stack);
     throw err;
   }
 }
-
-
-
-// async function putProfile(auth0UserId, email, data) {
-//   try {
-//     const accountId = await getAccountId(auth0UserId, email);
-
-//     const res = await pool.query(
-//       `UPDATE profiles
-//         SET first_name = $2,
-//             last_name = $3,
-//             street = $4,
-//             house_no = $5,
-//             zip_code = $6,
-//             town = $7,
-//             country = $8,
-//             holder = $9,
-//             iban = $10,
-//             bank_name = $11,
-//             bic = $12
-//         WHERE account_id = $1
-//        RETURNING *`,
-//       [
-//         accountId,
-//         data.first_name,
-//         data.last_name,
-//         data.street,
-//         data.house_no,
-//         data.zip_code,
-//         data.town,
-//         data.country,
-//         data.holder,
-//         data.iban,
-//         data.bank_name,
-//         data.bic
-//       ]
-//     );
-//     return res.rows[0];
-//   } catch (err) {
-//     console.error("Error updating profile data:", err);
-//     throw err;
-//   }
-// }
-
 
 // Get NAV history for a specific fund
 async function getNavHistory(isin, auth0UserId) {

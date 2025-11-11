@@ -7,7 +7,7 @@ const cors = require("cors");
 const router = require("./router.js");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // app.use(cors());
 // Allow frontend dev server origins dynamically in development.
@@ -15,8 +15,19 @@ const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g., curl, server-to-server) or matching the configured frontend origin
       if (!origin) return callback(null, true);
+
+      // Vercel
+      if (process.env.NODE_ENV === "production") {
+      const allowedOrigins = [
+        process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+        FRONTEND_ORIGIN
+      ].filter(Boolean);
+
+      if (allowedOrigins.some(allowed => origin.startsWith(allowed))) {
+        return callback(null, true);
+      }
+    }
       if (process.env.NODE_ENV !== "production") {
         // allow any localhost port during development
         if (/^http:\/\/localhost:\d+$/.test(origin))
@@ -30,10 +41,19 @@ app.use(
 );
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "../client")));
+// app.use(express.static(path.join(__dirname, "../client")));
 
 app.use("/", router);
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server listening on port ${port}`);
+// });
+
+// Vercel
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}
+
+module.exports = app;
