@@ -1,0 +1,361 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+
+/* Container Styles */
+.display-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Header Section */
+.table-header-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(to bottom, #fafafa, #ffffff);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Search Wrapper */
+.search-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 40px 10px 44px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.clear-search {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #e5e7eb;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.clear-search:hover {
+  background: #d1d5db;
+  color: #374151;
+}
+
+/* Results Info */
+.results-info {
+  padding: 0.75rem 1.5rem;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.results-count {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Table Container */
+.list-container {
+  overflow-x: auto;
+}
+
+.table-wrapper {
+  min-width: 100%;
+}
+
+.modern-fund-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Table Header */
+.table-header-row {
+  background: #f9fafb;
+}
+
+.modern-fund-table thead th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b7280;
+  border-bottom: 2px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  background: #f9fafb;
+  z-index: 10;
+}
+
+.th-value {
+  text-align: right;
+}
+
+/* Table Rows */
+.fund-row {
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.fund-row:hover {
+  background: #f9fafb;
+}
+
+.fund-row:active {
+  background: #f3f4f6;
+}
+
+.fund-row.selected {
+  background: #eff6ff;
+  border-left: 3px solid #3b82f6;
+}
+
+.fund-row.selected:hover {
+  background: #dbeafe;
+}
+
+/* Table Cells */
+.modern-fund-table tbody td {
+  padding: 1.25rem 1.5rem;
+  vertical-align: top;
+}
+
+/* Fund Info Cell */
+.cell-fund-info {
+  width: 60%;
+}
+
+.fund-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fund-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.fund-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.fund-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-radius: 12px;
+}
+
+.fund-isin {
+  font-size: 13px;
+  color: #6b7280;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+/* Value Info Cell */
+.cell-value-info {
+  width: 40%;
+  text-align: right;
+}
+
+.value-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.value-row,
+.units-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.value-label,
+.units-label {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+.current-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #059669;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.currency {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-left: 2px;
+}
+
+.units-held {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 4rem 2rem !important;
+  text-align: center;
+}
+
+.empty-state-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.empty-icon {
+  color: #d1d5db;
+}
+
+.empty-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.empty-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .table-header-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-wrapper {
+    max-width: 100%;
+  }
+
+  .modern-fund-table tbody td {
+    padding: 1rem;
+  }
+
+  .cell-fund-info,
+  .cell-value-info {
+    width: 50%;
+  }
+
+  .current-value {
+    font-size: 16px;
+  }
+
+  .fund-name {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fund-name-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .value-details {
+    align-items: flex-end;
+  }
+}
+
+/* Focus States for Accessibility */
+.fund-row:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+  background: #f9fafb;
+}
+
+.fund-row:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Loading State (optional) */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.loading-row {
+  background: linear-gradient(
+    90deg,
+    #f3f4f6 0px,
+    #e5e7eb 40px,
+    #f3f4f6 80px
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}

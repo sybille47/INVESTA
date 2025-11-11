@@ -1,0 +1,23 @@
+/* Force proper alignment for NAV, Units, and Amount cells */
+.cell-nav,
+.cell-units,
+.cell-amount {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  height: 100%; /* makes vertical centering consistent */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Inline values inside these cells */
+.cell-nav span,
+.cell-units span,
+.cell-amount span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.4;
+  white-space: nowrap;
+}

@@ -19,6 +19,7 @@ import OrderHistory from "./pages/OrderHistory";
 import { useFundList } from "./hooks/useFundList";
 import { Toaster } from "react-hot-toast";
 import SubNavBar from "./component/data/SubNavBar";
+import "./index.css";
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -36,20 +37,18 @@ function App() {
   );
 }
 
-// ⬇️ Split out main app content so we can use useLocation()
 function AppContent() {
   const location = useLocation();
   const { isAuthenticated } = useAuth0();
 
   const { hasFunds } = useFundList();
 
-  // Only show NavBar if NOT on "/" route
   const showNavBar = location.pathname !== "/";
 
   return (
     <Layout>
       {showNavBar && isAuthenticated && <TopNav />}
-      <SubNavBar />
+      {/* <SubNavBar /> */}
 
       <Routes>
         <Route

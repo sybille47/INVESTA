@@ -1,0 +1,66 @@
+// const API_BASE_URL = 'http://localhost:3000';
+
+// export const placeOrderService = {
+//   async postOrders(token, orderData) {
+//     try {
+//       const response = await fetch(`${API_BASE_URL}/orders`, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           Authorization: `Bearer ${token}`
+//         },
+//         body: JSON.stringify(orderData)
+//       });
+//       console.log(orderData)
+//       console.log('Response status:', response.status);
+
+//       if (!response.ok) {
+//         const errorText = await response.text();
+//         console.error('Post error response:', errorText);
+//         throw new Error(`Failed to post order service: ${response.status} ${errorText}`);
+
+//       return response.json();
+//       }
+//     } catch (error) {
+//       console.error('Post fetch error:', error);
+//       throw error;
+//     }
+//   }
+// };
+
+const API_BASE_URL = 'http://localhost:3000';
+
+export const placeOrderService = {
+  async postOrders(token, orderData) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      console.log('OrderData sent:', orderData);
+      console.log('Response status:', response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Post error response:', errorText);
+        throw new Error(
+          `Failed to post order service: ${response.status} ${errorText}`
+        );
+      }
+
+      // ✅ This must be outside the if block
+      const data = await response.json();
+      console.log('Response JSON:', data);
+      return data;
+
+    } catch (error) {
+      console.error('Post fetch error:', error);
+      throw error;
+    }
+  },
+};
