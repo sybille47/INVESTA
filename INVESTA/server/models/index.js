@@ -1,12 +1,20 @@
-require("dotenv").config();
-const { Pool } = require("pg");
-
-const pool = new Pool({
+// For local development
+const localConfig = {
   user: process.env.PGUSER,
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
   password: process.env.PGPASSWORD,
   port: process.env.PGPORT,
-});
+};
 
-module.exports = pool;
+// For production (Vercel)
+const productionConfig = {
+  connectionString: process.env.POSTGRES_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+};
+
+const pool = new Pool(
+  process.env.NODE_ENV === 'production' ? productionConfig : localConfig
+);
