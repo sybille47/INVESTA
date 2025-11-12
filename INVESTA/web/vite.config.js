@@ -16,6 +16,9 @@ export default defineConfig({
       "@emotion/styled",
       "@mui/x-charts",
     ],
+    build: {
+      outDir: "dist"
+    }
   },
   resolve: {
     alias: {
