@@ -106,16 +106,16 @@ router.post("/api/orders", checkJwt, async (req, res) => {
   }
 });
 
-router.get("/api/profile", checkJwt, async (req, res) => {
-  try {
-    console.log("Auth0 payload:", req.auth.payload);
+  router.get("/api/profile", checkJwt, async (req, res) => {
+    try {
+      console.log("Auth0 payload:", req.auth.payload);
 
-    const auth0UserId = req.auth.payload.sub;
-    const email =
-      req.auth.payload["https://investa-api/email"] ||
-      req.auth.payload.email ||
-      req.auth.payload.name ||
-      null;
+      const auth0UserId = req.auth.payload.sub;
+      const email =
+        req.auth.payload["https://investa-api/email"] ||
+        req.auth.payload.email ||
+        req.auth.payload.name ||
+        null;
 
     console.log("Auth0 email resolved to:", email);
 

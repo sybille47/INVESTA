@@ -50,10 +50,22 @@ app.use("/", router);
 // });
 
 // Vercel
+// if (process.env.NODE_ENV !== "production") {
+//   app.listen(port, () => {
+//     console.log(`Server listening on port ${port}`);
+//   });
+// }
+
+// module.exports = app;
+
+// Local dev: run normally
 if (process.env.NODE_ENV !== "production") {
   app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
   });
 }
 
-module.exports = app;
+// Export the Express app as a handler for Vercel
+module.exports = (req, res) => {
+  app(req, res);
+};
