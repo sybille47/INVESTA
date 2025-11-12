@@ -7,10 +7,10 @@ const API_BASE_URL = import.meta.env.VITE_API_URL ||
 export const profileService = {
   async getProfile(token) {
     try {
-      console.log('Fetching profile from:', `${API_BASE_URL}/profile`);
+      console.log('Fetching profile from:', `${API_BASE_URL}/api/profile`);
       console.log('With token:', token ? 'Token exists' : 'No token');
 
-      const response = await fetch(`${API_BASE_URL}/profile`, {
+      const response = await fetch(`${API_BASE_URL}/api/profile`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -36,7 +36,7 @@ export const profileService = {
 
   async updateProfile(token, profileData) {
     try {
-      const response = await fetch(`${API_BASE_URL}/profile`, {
+      const response = await fetch(`${API_BASE_URL}/api/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

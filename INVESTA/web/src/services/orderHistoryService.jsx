@@ -7,8 +7,8 @@ const API_BASE_URL = import.meta.env.VITE_API_URL ||
 export const orderHistoryService = {
   async getOrders(token, isin) {
     const url = isin
-      ? `${import.meta.env.VITE_API_URL}/orders?isin=${isin}`
-      : `${import.meta.env.VITE_API_URL}/orders`;
+      ? `${import.meta.env.VITE_API_URL}/api/orders?isin=${isin}`
+      : `${import.meta.env.VITE_API_URL}/api/orders`;
 
       console.log("🔍 Fetching:", url);
 

@@ -7,7 +7,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL ||
 export const placeOrderService = {
   async postOrders(token, orderData) {
     try {
-      const response = await fetch(`${API_BASE_URL}/orders`, {
+      const response = await fetch(`${API_BASE_URL}/api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

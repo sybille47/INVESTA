@@ -7,7 +7,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL ||
 export const fundService = {
   async getFunds(token) {
     try {
-      const response = await fetch(`${API_BASE_URL}/funds`, {
+      const response = await fetch(`${API_BASE_URL}/api/funds`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) throw new Error(`Failed to fetch funds`);
@@ -21,7 +21,7 @@ export const fundService = {
   async getFundByIsin(token, isin) {
     try {
       console.log("Fetching single fund:", isin);
-      const response = await fetch(`${API_BASE_URL}/funds/${isin}`, {
+      const response = await fetch(`${API_BASE_URL}/api/funds/${isin}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const fundService = {
 
   async getFundsTotal(token) {
   try {
-    const response = await fetch(`${API_BASE_URL}/funds-total`, {
+    const response = await fetch(`${API_BASE_URL}/api/funds-total`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
