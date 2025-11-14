@@ -1,31 +1,33 @@
-let _realPool = null;
-let PgPool = null;
+const pool = require("./db"); // <-- use the shared pool
 
-function getRealPool() {
-  if (_realPool) return _realPool;
+// let _realPool = null;
+// let PgPool = null;
 
-  // Import pg lazily (important for Vitest mocks)
-  const pkg = require("pg");
-  PgPool = (pkg && pkg.Pool) || (pkg && pkg.default && pkg.default.Pool);
-  if (!PgPool) {
-    throw new Error("Failed to load pg.Pool – check your pg import");
-  }
+// function getRealPool() {
+//   if (_realPool) return _realPool;
 
-  // Build connection config
-  const config = process.env.DATABASE_URL
-    ? { connectionString: process.env.DATABASE_URL }
-    : {
-        user: process.env.PGUSER,
-        host: process.env.PGHOST,
-        database: process.env.PGDATABASE,
-        password: process.env.PGPASSWORD,
-        port: process.env.PGPORT,
-      };
+//   // Import pg lazily (important for Vitest mocks)
+//   const pkg = require("pg");
+//   PgPool = (pkg && pkg.Pool) || (pkg && pkg.default && pkg.default.Pool);
+//   if (!PgPool) {
+//     throw new Error("Failed to load pg.Pool – check your pg import");
+//   }
 
-  console.log("Creating PG pool with config:", config);
-  _realPool = new PgPool(config);
-  return _realPool;
-}
+//   // Build connection config
+//   const config = process.env.DATABASE_URL
+//     ? { connectionString: process.env.DATABASE_URL }
+//     : {
+//         user: process.env.PGUSER,
+//         host: process.env.PGHOST,
+//         database: process.env.PGDATABASE,
+//         password: process.env.PGPASSWORD,
+//         port: process.env.PGPORT,
+//       };
+
+//   console.log("Creating PG pool with config:", config);
+//   _realPool = new PgPool(config);
+//   return _realPool;
+// }
 
 
 // Export a pool-like object that delegates to the real pool's query method.

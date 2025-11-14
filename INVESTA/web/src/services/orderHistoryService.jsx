@@ -1,14 +1,15 @@
 // const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ||
-                    (import.meta.env.MODE === 'production' ? '' : 'http://localhost:3000');
+const API_BASE_URL =
+                  import.meta.env.VITE_API_URL ||
+                  (import.meta.env.DEV ? 'http://localhost:3000' : window.location.origin);
 
 
 export const orderHistoryService = {
   async getOrders(token, isin) {
     const url = isin
-      ? `${import.meta.env.VITE_API_URL}/api/orders?isin=${isin}`
-      : `${import.meta.env.VITE_API_URL}/api/orders`;
+            ? `${import.meta.env.VITE_API_URL}/api/orders?isin=${isin}`
+            : `${import.meta.env.VITE_API_URL}/api/orders`;
 
       console.log("🔍 Fetching:", url);
 
