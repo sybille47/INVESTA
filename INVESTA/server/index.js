@@ -1,72 +1,68 @@
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.get("/", (req, res) => res.send("Hello World"));
-
-if (require.main === module) {
-  app.listen(port, () => console.log(`Server listening on port ${port}`));
-}
-
-
-
-
-
-// "use strict";
-
-// require("dotenv").config();
 // const express = require("express");
-// const cors = require("cors");
-// const router = require("./router.js");
-
 // const app = express();
 // const port = process.env.PORT || 3000;
 
-// // FRONTEND_ORIGINS: comma separated list, e.g. "http://localhost:5173,https://investa.vercel.app"
-// const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGINS || "http://localhost:5173")
-//   .split(",")
-//   .map(s => s.trim())
-//   .filter(Boolean);
+// app.get("/", (req, res) => res.send("Hello World"));
 
-// function corsOriginChecker(origin, callback) {
-//   // allow non-browser tools (no origin) like Postman, server-to-server calls
-//   if (!origin) return callback(null, true);
-
-//   // allow same origin or listed frontend origins
-//   // allow localhost dev ports automatically
-//   if (/^http:\/\/localhost:\d+$/.test(origin)) return callback(null, true);
-
-//   const matched = FRONTEND_ORIGINS.some(allowed => {
-//     // allow exact match or if allowed doesn't have protocol, compare host
-//     return origin === allowed || origin.startsWith(allowed);
-//   });
-
-//   if (matched) return callback(null, true);
-
-//   return callback(new Error("Not allowed by CORS"));
-// }
-
-// app.use(
-//   cors({
-//     origin: corsOriginChecker,
-//     credentials: true,
-//   })
-// );
-
-// app.use(express.json());
-// app.use("/", router);
-
-// // Export app for tests
-// module.exports = app;
-
-// // Start server (always start in Railway / production)
 // if (require.main === module) {
-//   app.listen(port, () => {
-//     console.log(`Server listening on port ${port}`);
-//     console.log(`NODE_ENV=${process.env.NODE_ENV || "development"}`);
-//     console.log(`Allowed FRONTEND_ORIGINS: ${FRONTEND_ORIGINS.join(", ")}`);
-//   });
+//   app.listen(port, () => console.log(`Server listening on port ${port}`));
 // }
+
+"use strict";
+
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const router = require("./router.js");
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+// FRONTEND_ORIGINS: comma separated list, e.g. "http://localhost:5173,https://investa.vercel.app"
+const FRONTEND_ORIGINS = (process.env.FRONTEND_ORIGINS || "http://localhost:5173")
+  .split(",")
+  .map(s => s.trim())
+  .filter(Boolean);
+
+function corsOriginChecker(origin, callback) {
+  // allow non-browser tools (no origin) like Postman, server-to-server calls
+  if (!origin) return callback(null, true);
+
+  // allow same origin or listed frontend origins
+  // allow localhost dev ports automatically
+  if (/^http:\/\/localhost:\d+$/.test(origin)) return callback(null, true);
+
+  const matched = FRONTEND_ORIGINS.some(allowed => {
+    // allow exact match or if allowed doesn't have protocol, compare host
+    return origin === allowed || origin.startsWith(allowed);
+  });
+
+  if (matched) return callback(null, true);
+
+  return callback(new Error("Not allowed by CORS"));
+}
+
+app.use(
+  cors({
+    origin: corsOriginChecker,
+    credentials: true,
+  })
+);
+
+app.use(express.json());
+app.use("/", router);
+
+// Export app for tests
+module.exports = app;
+
+// Start server (always start in Railway / production)
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+    console.log(`NODE_ENV=${process.env.NODE_ENV || "development"}`);
+    console.log(`Allowed FRONTEND_ORIGINS: ${FRONTEND_ORIGINS.join(", ")}`);
+  });
+}
 
 
 
