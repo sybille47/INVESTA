@@ -156,7 +156,7 @@ router.put("/api/profile", checkJwt, async (req, res) => {
   }
 });
 
-// NEW CHART ROUTES
+// CHART ROUTES
 // Get NAV history for a specific fund
 router.get("/api/nav/:isin", checkJwt, async (req, res) => {
   try {

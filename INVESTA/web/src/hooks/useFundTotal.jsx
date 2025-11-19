@@ -18,17 +18,17 @@ export function useFundTotal() {
         setError(null);
 
         const token = await getAccessTokenSilently();
-        console.log("🔑 Token obtained");
+        console.log("Token obtained");
 
         const result = await fundService.getFundsTotal(token);
-        console.log("📊 Total data received:", result);
+        console.log("Total data received:", result);
 
         if (isMounted) {
           setData(result);
           setLoading(false);
         }
       } catch (err) {
-        console.error("❌ useFundTotal error:", err);
+        console.error("useFundTotal error:", err);
         if (isMounted) {
           setError(err);
           setLoading(false);

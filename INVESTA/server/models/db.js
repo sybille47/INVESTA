@@ -3,7 +3,6 @@
 require("dotenv").config();
 const { Pool } = require("pg");
 
-// Build configuration based on environment
 const isProduction = process.env.NODE_ENV === "production";
 
 const localConfig = {
@@ -15,13 +14,13 @@ const localConfig = {
 };
 
 const productionConfig = {
-  connectionString: process.env.DATABASE_URL, // ⬅ Railway provides this
-  ssl: { rejectUnauthorized: false },         // ⬅ important for Railway
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
 };
 
 const pool = new Pool(isProduction ? productionConfig : localConfig);
 
-// Optional (recommended) logging for debugging deploys
+
 console.log("DB connection config:", isProduction ? "Production" : "Local");
 
 module.exports = pool;

@@ -11,8 +11,6 @@ vi.mock("@auth0/auth0-react", () => ({
   }),
 }));
 
-// Mock usePlaceOrder. Provide a mutable `hookValue` that tests can set
-// so the component sees valid data and enables the submit button.
 const mockPlaceOrder = vi.fn();
 let hookValue = {
   orderData: {
@@ -23,7 +21,7 @@ let hookValue = {
     trade_date: "",
   },
   setOrderData: vi.fn((newData) => {
-    // shallow merge to simulate state update
+
     hookValue.orderData = { ...hookValue.orderData, ...newData };
   }),
   placeOrder: mockPlaceOrder,
@@ -35,7 +33,7 @@ vi.mock("../../../hooks/usePlaceOrder", () => ({
 
 describe("<PlaceOrderForm />", () => {
   it("calls placeOrder with positive amount for Subscription", async () => {
-    // Pre-populate the mocked hook so component renders with enabled submit
+
     hookValue.orderData = {
       order_type: "Subscription",
       isin: "LU1700000001",

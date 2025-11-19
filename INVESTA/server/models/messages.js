@@ -1,40 +1,4 @@
-const pool = require("./db"); // <-- use the shared pool
-
-// let _realPool = null;
-// let PgPool = null;
-
-// function getRealPool() {
-//   if (_realPool) return _realPool;
-
-//   // Import pg lazily (important for Vitest mocks)
-//   const pkg = require("pg");
-//   PgPool = (pkg && pkg.Pool) || (pkg && pkg.default && pkg.default.Pool);
-//   if (!PgPool) {
-//     throw new Error("Failed to load pg.Pool – check your pg import");
-//   }
-
-//   // Build connection config
-//   const config = process.env.DATABASE_URL
-//     ? { connectionString: process.env.DATABASE_URL }
-//     : {
-//         user: process.env.PGUSER,
-//         host: process.env.PGHOST,
-//         database: process.env.PGDATABASE,
-//         password: process.env.PGPASSWORD,
-//         port: process.env.PGPORT,
-//       };
-
-//   console.log("Creating PG pool with config:", config);
-//   _realPool = new PgPool(config);
-//   return _realPool;
-// }
-
-
-// Export a pool-like object that delegates to the real pool's query method.
-const pool = {
-  query: (...args) => getRealPool().query(...args),
-};
-
+const pool = require("./db");
 
 async function getAccountId(auth0UserId, email = null) {
   try {
@@ -419,18 +383,18 @@ async function putProfile(auth0UserId, email, data) {
 
     const res = await pool.query(
       `UPDATE profiles
-       SET first_name = $2,
-           last_name = $3,
-           street = $4,
-           house_no = $5,
-           zip_code = $6,
-           town = $7,
-           country = $8,
-           holder = $9,
-           iban = $10,
-           bank_name = $11,
-           bic = $12
-       WHERE account_id = $1
+        SET first_name = $2,
+          last_name = $3,
+          street = $4,
+          house_no = $5,
+          zip_code = $6,
+          town = $7,
+          country = $8,
+          holder = $9,
+          iban = $10,
+          bank_name = $11,
+          bic = $12
+        WHERE account_id = $1
        RETURNING *`,
       [
         accountId,
@@ -467,7 +431,6 @@ async function getNavHistory(isin, auth0UserId) {
   try {
     const accountId = await getAccountId(auth0UserId);
 
-    // Verify user has access to this fund (has orders for it)
     const accessCheck = await pool.query(
       `SELECT COUNT(*) as count FROM orders
         WHERE isin = $1 AND account_id = $2`,
@@ -625,7 +588,6 @@ async function getFundAllocation(auth0UserId) {
   }
 }
 
-// Add to module.exports at the bottom
 module.exports = {
   pool,
   getAccountId,

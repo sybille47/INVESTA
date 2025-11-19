@@ -16,28 +16,6 @@ const ProjectInfoCard = () => {
     <div className="w-full max-w-2xl mx-auto mb-6">
       <div className="bg-gradient-to-r from-slate-50 to-slate-100 border border-slate-200 rounded-lg shadow-lg p-6">
         <div className="flex items-center gap-2 mb-3">
-          {/* <svg
-            width="0"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="text-slate-600"
-          > */}
-            {/* <path
-              d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            /> */}
-            {/* <path
-              d="M14 2v6h6M16 13H8M16 17H8M10 9H8"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            /> */}
-          {/* </svg> */}
           <h3 className="text-lg font-semibold text-slate-800">
             Exploring This Project?
           </h3>

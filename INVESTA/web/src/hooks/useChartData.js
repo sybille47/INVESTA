@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+const API_BASE_URL =
+                    import.meta.env.VITE_API_URL ||
+                    (import.meta.env.DEV ? 'http://localhost:3000' : window.location.origin);
+
 
 export function useNavHistory() {
   const [data, setData] = useState([]);
@@ -14,7 +18,7 @@ export function useNavHistory() {
       try {
         setLoading(true);
         const token = await getAccessTokenSilently();
-        const response = await fetch(`${API_BASE}/nav`, {
+        const response = await fetch(`${API_BASE_URL}/api/nav`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -55,7 +59,7 @@ export function useFundAllocation() {
       try {
         setLoading(true);
         const token = await getAccessTokenSilently();
-        const response = await fetch(`${API_BASE}/charts/fund-allocation`, {
+        const response = await fetch(`${API_BASE_URL}/api/charts/fund-allocation`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -96,7 +100,7 @@ export function useMonthlyInvestments() {
       try {
         setLoading(true);
         const token = await getAccessTokenSilently();
-        const response = await fetch(`${API_BASE}/charts/monthly-counts`, {
+        const response = await fetch(`${API_BASE_URL}/api/charts/monthly-counts`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -140,7 +144,7 @@ export function useInvestmentValue() {
       try {
         setLoading(true);
         const token = await getAccessTokenSilently();
-        const response = await fetch(`${API_BASE}/charts/investment-value`, {
+        const response = await fetch(`${API_BASE_URL}/api/charts/investment-value`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

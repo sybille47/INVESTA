@@ -41,14 +41,6 @@ function HomePage() {
       <img src="../component/data/assets/investaLogo.png" alt="" />
       <h1 className="login-page text-4xl font-bold mb-6">Welcome to Investa</h1>
 
-      {/* {isAuthenticated && (
-        <> */}
-          {/* <h2>Welcome, {user?.name}!</h2> */}
-          {/* <p>Auth0 ID: {user?.sub}</p> */}
-          {/* <Button onClick={testApiCall}>Test API Call</Button> */}
-        {/* </>
-      )} */}
-
       <ProjectInfoCard/>
 
       {!isAuthenticated && (
