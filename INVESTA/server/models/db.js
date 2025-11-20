@@ -14,7 +14,7 @@ const localConfig = {
 };
 
 const productionConfig = {
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL || 'postgres://localhost:5432/investorApp',
   ssl: { rejectUnauthorized: false },
 };
 

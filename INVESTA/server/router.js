@@ -19,6 +19,11 @@ const {
 } = require("./models/messages");
 
 
+// root health check
+router.get("/", (req, res) => {
+  res.send("Backend is running");
+});
+
 router.get("/api/funds", checkJwt, async (req, res) => {
   try {
     const auth0UserId = req.auth.payload.sub;
