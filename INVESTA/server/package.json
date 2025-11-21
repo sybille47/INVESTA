@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "test": "vitest --run"
   },
-    "engines": {
+  "engines": {
     "node": "18.x"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "express-oauth2-jwt-bearer": "^1.7.1",
     "pg": "^8.16.3"
   },
