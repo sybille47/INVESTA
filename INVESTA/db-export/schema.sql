@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict YMgHRRLQaEzmPbT2bQqcUsXVufog6ZdPukCrykds2N9kz4YiEDxTsbPxRHsH4IB
+-- \restrict YMgHRRLQaEzmPbT2bQqcUsXVufog6ZdPukCrykds2N9kz4YiEDxTsbPxRHsH4IB
 
 -- Dumped from database version 17.6 (Postgres.app)
 -- Dumped by pg_dump version 17.6 (Postgres.app)
@@ -384,4 +384,4 @@ ALTER TABLE ONLY public.orders
 -- PostgreSQL database dump complete
 --
 
-\unrestrict YMgHRRLQaEzmPbT2bQqcUsXVufog6ZdPukCrykds2N9kz4YiEDxTsbPxRHsH4IB
+-- \unrestrict YMgHRRLQaEzmPbT2bQqcUsXVufog6ZdPukCrykds2N9kz4YiEDxTsbPxRHsH4IB

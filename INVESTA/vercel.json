@@ -13,12 +13,12 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "server/index.js" },
     { "handle": "filesystem" },
-    { "src": "/.*", "dest": "web/dist/index.html" }
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
-  "build": {
-    "env": {
-      "VITE_API_URL": "https://investa-eight.vercel.app"
-    }
-  },
-  "outputDirectory": "web/dist"
+  "outputDirectory": [
+    "web/dist"
+  ],
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

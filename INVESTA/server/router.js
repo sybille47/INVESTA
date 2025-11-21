@@ -17,7 +17,7 @@ const {
   getMonthlyInvestmentCounts,
   getFundAllocation,
 } = require("./models/messages");
-
+  
 
 // root health check
 router.get("/", (req, res) => {
