@@ -1,9 +1,4 @@
-// const API_BASE_URL = "http://localhost:3000";
-
-const API_BASE_URL =
-                    import.meta.env.VITE_API_URL ||
-                    (import.meta.env.DEV ? 'http://localhost:3000' : window.location.origin);
-
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export const fundService = {
   async getFunds(token) {

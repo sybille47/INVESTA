@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 
-const API_BASE_URL =
-                    import.meta.env.VITE_API_URL ||
-                    (import.meta.env.DEV ? 'http://localhost:3000' : window.location.origin);
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 
 
 export function useNavHistory() {
