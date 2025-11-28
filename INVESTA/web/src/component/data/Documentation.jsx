@@ -29,8 +29,8 @@ const useCases = [
     preconditions: 'The user does not have an account yet, i.e. the email address has not been used as user name for an existing account',
     description: `A user opens the Investa log in page and presses the 'Log in' button. In the Welcome page, the user clicks on the 'Sign up' link to create a new account. The email address will serve as the user name, and has to comply with the following conditions:
 
-1. A valid email address has to be used, i.e. it has to contain '@'
-2. The email address has not been used for another user account on the app
+1. A valid email address has to be used, i.e. it has to contain '@ (there is no further verification of an email address)'
+2. The email address has not been used to create a user account on the app
 
 After entering a valid email address, the new page opens to either create a passkey or a password. The password has to comply with the standards that are laid out and ticked off while the user is typing a password. Once either the passkey or password are set, the user is successfully signed up.`,
     associations: 'All use cases are associated as the successful sign up is a prerequisite to access and use the app',
@@ -45,7 +45,7 @@ After entering a valid email address, the new page opens to either create a pass
     actors: 'User',
     overview: 'A user enters existing credentials to log in to INVESTA',
     preconditions: 'The user has successfully signed up and created valid credentials',
-    description: `A user opens the Investa log in page and presses the 'Log in' button. In the Welcome page, the user enters the email address. Clicking on 'Continue' will bring up the password or the passkey depending what was set up during the sign up.`,
+    description: `A user opens the Investa log in page and presses the 'Log in' button. In the Welcome page, the user enters the email address. Clicking on 'Continue' will bring up the password or the passkey depending what was set up during the account creation.`,
     associations: 'All use cases are associated as the successful log in is a prerequisite to access and use the app',
     inputSummary: 'Email address and password or passkey',
     outputSummary: 'Successful log in and authentication; access to the app'
@@ -56,11 +56,11 @@ After entering a valid email address, the new page opens to either create a pass
     name: 'View Fund Portfolio',
     subjectArea: 'Information / review of investment activity',
     actors: 'User',
-    overview: 'A user can view the list of funds they are invested into, a pie chart to provide a visual analysis. Clicking on a fund row opens the order history for the specific fund.',
+    overview: 'A user can view the list of funds they are invested into and a pie chart to provide a visual analysis of the investments. Clicking on a fund row opens the order history for the specific fund.',
     preconditions: 'The user has successfully signed up and logged in',
     description: `Once the user has logged in successfully, the Fund Portfolio page is displayed. This page can also be opened by pressing on the 'Funds' or on the logo button in the navigation bar. The page provides the user with a general overview of the investment and the corresponding values:
 
-• The 'Total Value' of the investments, i.e. the sum of all values based on the latest NAV shown in the list of funds below
+• The 'Total Value' of the investments, i.e. the cumulated value of all investments in the list of funds below. The value is calculated based on the no of units multiplied with the latest NAV for the fund available.
 • A list of funds shows the fund information (fund name, and share class, ISIN, fund type) and the cumulative number of units held along with their value as of the latest NAV on file
 • Clicking on a fund row opens the corresponding order history in the Order History page
 • A pie chart visualises the holdings by showing the breakdown of the investment into different funds. Hovering over the pie chart shows the fund name, value and number of units.`,
@@ -103,17 +103,17 @@ The Order History page is view only, and provides the user with a list of orders
 The page provides the user with a list of fields to populate; mandatory details are marked with an asterisk. Some fields can be populated by selecting a value from a drop down menu that pops up when clicking into the input field:
 
 • Order type: the user can choose a type ('Subscription'/'Redemption') from a drop down menu
-• ISIN: the user can choose the correct ISIN from a drop down menu. Once the ISIN has been provided, the 'Fund Name', the 'Current Holdings' in units and the fund currency are retrieved and displayed
+• ISIN: the user can choose the correct ISIN from a drop down menu. Once the ISIN has been provided, the 'Fund Name', 'Current Holdings' in units and the fund currency are retrieved and displayed
 • Trade date: once the trade date has been entered, the corresponding value date is calculated based on the fund rules stored in the funds table, and displayed for information purposes
-• Amount or Units: for order type 'Subscription', orders can be placed in either amount or units. 'Redemptions' can only be placed in units, so that the 'Amount' field is deactivated for this order type
+• Amount or Units: for order type 'Subscription', orders can be placed in either amount or units. 'Redemptions' can only be placed in units, and the 'Amount' field is deactivated for this order type
 
-If all mandatory details have been entered, the 'Submit order' button becomes active. When the order has been successfully submitted, a message is shown on the top of the screen confirming the order ID. The initial status of all orders is 'Pending'. The order will be included in the Order History page and in the cumulated values for the fund displayed in the Fund Portfolio page.
+Once all mandatory details have been entered, the 'Submit order' button becomes active. When the order has been successfully submitted, a message is shown on the top of the screen confirming the order ID. The initial status of all orders is 'Pending'. The order will be included in the Order History page and in the cumulated values for the fund displayed in the Fund Portfolio page.
 
 In case a redemption is placed for a number of units exceeding the current holdings, a message is shown on top of the screen advising the rejection reason.`,
     associations: 'Use case ID 3: View Fund Portfolio, Use case ID 4: View Order History',
     inputSummary: 'Order details: order type, ISIN, trade date, amount or units',
     outputSummary: '1. Fund data corresponding to user input: fund name, current holdings in units, value date, fund currency 2. After pressing "Submit order": confirmation or rejection message 3. Order details are included in Order History and Fund Portfolio pages',
-    notes: 'Once the user has left the "Place New Order" page, the order data should be removed from the fields and the page should be blank again once the user opens the page again'
+    notes: 'Once the user has left the "Place New Order" page, the order data is removed from the fields and the page should be blank again once the user opens the page again'
   },
   {
     id: 'uc-6',
@@ -167,8 +167,8 @@ In case a redemption is placed for a number of units exceeding the current holdi
     subjectArea: 'Information / review of investment activity',
     actors: 'User',
     overview: 'A user can search for any details by entering a search term',
-    preconditions: 'The user has successfully signed up and created valid credentials; At least one order has been placed on the account',
-    description: `The user can enter a search term into the search bar in the Fund Portfolio or the Order History page. Any row in the list of funds or list of orders that match the search term should be displayed. The search filter is applied dynamically while the user is inputting the search.`,
+    preconditions: 'The user has successfully signed up and created valid credentials; at least one order has been placed on the account',
+    description: `The user can enter a search value into the search bar in the Fund Portfolio or the Order History page. Any row in the list of funds or list of orders that match the search value in any of their fields should be displayed. The search filter is applied dynamically while the user is inputting the search.`,
     associations: 'Use case ID 3: View Fund Portfolio, Use case ID 4: View Order History, Use case ID 5: Place New Order',
     inputSummary: 'Search term',
     outputSummary: 'Search result matching the input in the Search field'
@@ -180,8 +180,8 @@ In case a redemption is placed for a number of units exceeding the current holdi
     subjectArea: 'Reporting',
     actors: 'User',
     overview: 'A user can download fund and order details in csv format',
-    preconditions: 'The user has successfully signed up and created valid credentials; At least one order has been placed on the account',
-    description: `The user clicks on the download icon in the Fund Portfolio page or in the Order History page. The data in the fund list or the order list that is currently displayed on screen is compiled in csv format and downloaded. The user can access the csv file in their Downloads folder.`,
+    preconditions: 'The user has successfully signed up and created valid credentials; at least one order has been placed on the account',
+    description: `The user clicks on the download icon in the Fund Portfolio page or in the Order History page. The data in the fund list or the order list that is currently displayed on screen is compiled in csv format and downloaded. Users can access the csv file on their machine, e.g. in their Downloads folder.`,
     associations: 'Use case ID 3: View Fund Portfolio, Use case ID 4: View Order History, Use case ID 5: Place New Order, Use case ID 9: Search Fund and / or Order Details',
     inputSummary: 'n/a',
     outputSummary: 'n/a',
@@ -194,7 +194,7 @@ In case a redemption is placed for a number of units exceeding the current holdi
     subjectArea: 'Authentication',
     actors: 'User',
     overview: 'A user can log out of the app',
-    preconditions: 'The user has successfully signed up and created valid credentials and is logged in',
+    preconditions: 'The user has successfully signed up, created valid credentials and is logged in',
     description: `After clicking on the 'Logout' button, the Login page is shown again. All other details including the navigation bar cannot be accessed anymore.`,
     associations: 'Use case ID 1: Sign up of a new user, Use case ID 2: Log in of existing user',
     inputSummary: 'n/a',
@@ -230,7 +230,6 @@ const pageContent = {
         title: 'Technology Stack',
         content: `Backend: Express, PostgreSQL, Auth0, dotenv
                   Frontend: React, Vite, Tailwind CSS, React Router, Auth0 React SDK, Recharts
-                  Testing: Vitest
                 `
       }
     ]
@@ -249,7 +248,7 @@ const pageContent = {
       {
         id: 'access-to-repo',
         title: 'Access to Repo',
-        content: `Please see details in GitHub: https://github.com/sybille47/INVESTA/blob/main/README.md`
+        content: `Please see details in GitHub [in this repo.](https://github.com/sybille47/INVESTA/blob/main/README.md)`
       },
     ]
   },
@@ -302,7 +301,7 @@ const pageContent = {
         id: 'folder-structure',
         title: 'Folder Structure',
         content: `The project is organized into separate directories for the frontend and backend, following a clean separation of concerns:
-                  • Frontend (web/): Built with React (JavaScript), structured into subfolders for reusable components, pages, hooks, and service modules.
+                  • Frontend (web/): Built with React (JavaScript), structured into subfolders for components, pages, hooks, and service modules.
                   • Backend (server/): Implemented with Express.js and PostgreSQL, containing routers, middleware, and data models.`,
         subsections: [
           {
@@ -329,7 +328,7 @@ const pageContent = {
       {
         id: 'state-management',
         title: 'State Management',
-        content: `Application state is managed using React hooks (e.g., useState, useEffect, custom hooks).
+        content: `Application state is managed using React hooks (e.g. useState, useEffect, custom hooks).
                   Global or shared state is accessed via external providers such as Auth0 (for authentication) and React Router (for navigation state).`
       }
     ]
@@ -417,7 +416,7 @@ const pageContent = {
 
                   4. Response Handling
                   The backend sends a structured JSON response back to the frontend.
-                  The React app updates its state using React hooks (e.g., useState, useEffect) and re-renders the affected components.`
+                  The React app updates its state using React hooks (e.g. useState, useEffect) and re-renders the affected components.`
       }
 
     ]
