@@ -63,4 +63,72 @@ Before installing and running the project, ensure you have:
 ```bash
 git clone https://github.com/<your-username>/INVESTA.git
 cd INVESTA
+```
+###  **Frontend Setup (React + Vite)**
+
+### 2. **Install dependencies**
+
+```bash
+cd web
+npm install
+```
+
+### 3. **Create a .env file**
+
+Create web/.env
+
+```
+VITE_AUTH0_DOMAIN=your-tenant.us.auth0.com
+VITE_AUTH0_CLIENT_ID=your-client-id
+VITE_AUTH0_AUDIENCE=https://investa-api
+VITE_API_URL=http://localhost:3000
+```
+
+### 4. **Start the Frontend**
+
+```bash
+npm run dev
+```
+
+The frontend will run at 
+
+```
+http://localhost:5173
+```
+
+###  **Backend Setup (Express API Server)**
+
+### 5. **Install backend dependencies**
+
+```bash
+cd server
+npm install
+```
+
+### 6. **Create environment configuration**
+
+Create server/.env
+
+```
+PORT=3000
+DATABASE_URL=postgres://postgres:password@localhost:5432/investa
+
+AUTH0_ISSUER_BASE_URL=https://your-tenant.us.auth0.com/
+AUTH0_AUDIENCE=https://investa-api
+```
+
+### 7. **Start the server**
+
+```
+node index.js
+```
+
+The API server runs on 
+
+```
+http://localhost:3000
+```
+
+###  ****
+
 
