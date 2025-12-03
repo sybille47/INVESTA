@@ -166,75 +166,81 @@ All GET/POST/PUT endpoints require an Auth0 JWT unless noted.
 
 #### Health Check
 
-GET /
-
-Returns a simple service-running message.
-No authentication required.
+    GET /
+    
+    Returns a simple service-running message.
+    No authentication required.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### Funds
 
-GET /api/funds
-Returns all funds for the authenticated user.
-
-GET /api/funds-total
-Returns the user's total fund value.
+    GET /api/funds
+    Returns all funds for the authenticated user.
+    
+    GET /api/funds-total
+    Returns the user's total fund value.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### Orders
 
-GET /api/orders
-Optional query:
-```
-?isin=XYZ
-```
+    GET /api/orders
+    Optional query:
+    ```
+    ?isin=XYZ
+    ```
 
-POST /api/orders
-Creates a new order.
+    POST /api/orders
+    Creates a new order.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### Profiles
 
-GET /api/profile
-Returns user profile information.
+    GET /api/profile
+    Returns user profile information.
+    
+    PUT /api/profile
+    Updates user profile details.
 
-PUT /api/profile
-Updates user profile details.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### NAV & Charts
 
-GET /api/nav/:isin
-Per-fund NAV history.
+    GET /api/nav/:isin
+    Per-fund NAV history.
+    
+    GET /api/nav
+    NAV for all user funds.
+    
+    GET /api/charts/investment-value
+    Data for investment value over time.
+    
+    GET /api/charts/monthly-counts
+    Counts of monthly investments.
+    
+    GET /api/charts/fund-allocation
+    Portfolio allocation data.
 
-GET /api/nav
-NAV for all user funds.
-
-GET /api/charts/investment-value
-Data for investment value over time.
-
-GET /api/charts/monthly-counts
-Counts of monthly investments.
-
-GET /api/charts/fund-allocation
-Portfolio allocation data.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### Folder Structure
 
-INVESTA/
-├── web/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── ...
-├── server/
-│   ├── index.js
-│   ├── router.js
-│   ├── db/
-│   ├── services/
-│   ├── package.json
-│   └── ...
-└── README.md
+    INVESTA/
+    ├── web/
+    │   ├── src/
+    │   ├── public/
+    │   ├── package.json
+    │   └── ...
+    ├── server/
+    │   ├── index.js
+    │   ├── router.js
+    │   ├── db/
+    │   ├── services/
+    │   ├── package.json
+    │   └── ...
+    └── README.md
 
 
 
