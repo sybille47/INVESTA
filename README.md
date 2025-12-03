@@ -129,6 +129,126 @@ The API server runs on
 http://localhost:3000
 ```
 
-###  ****
+###  Database Setup
+
+1. Create a PostgreSQL database:
+
+```
+sql
+CREATE DATABASE investa;
+```
+2. Run your schema/migration SQL files
+3. Seed optional data
+
+### Authentication
+
+This project uses Auth0 for:
+
+  - Login / logout
+  - JWT authentication
+  - Protecting backend routes
+    
+To access most API endpoints, the frontend must send:
+
+```
+Authorization: Bearer <JWT>
+```
+All secure endpoints require this.
+
+### API Reference
+
+#### Base URL:
+
+```
+http://localhost:3000/api
+```
+All GET/POST/PUT endpoints require an Auth0 JWT unless noted.
+
+#### Health Check
+
+GET /
+
+Returns a simple service-running message.
+No authentication required.
+
+#### Funds
+
+GET /api/funds
+Returns all funds for the authenticated user.
+
+GET /api/funds-total
+Returns the user's total fund value.
+
+#### Orders
+
+GET /api/orders
+Optional query:
+```
+?isin=XYZ
+```
+
+POST /api/orders
+Creates a new order.
+
+#### Profiles
+
+GET /api/profile
+Returns user profile information.
+
+PUT /api/profile
+Updates user profile details.
+
+#### NAV & Charts
+
+GET /api/nav/:isin
+Per-fund NAV history.
+
+GET /api/nav
+NAV for all user funds.
+
+GET /api/charts/investment-value
+Data for investment value over time.
+
+GET /api/charts/monthly-counts
+Counts of monthly investments.
+
+GET /api/charts/fund-allocation
+Portfolio allocation data.
+
+#### Folder Structure
+
+INVESTA/
+├── web/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── ...
+├── server/
+│   ├── index.js
+│   ├── router.js
+│   ├── db/
+│   ├── services/
+│   ├── package.json
+│   └── ...
+└── README.md
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
